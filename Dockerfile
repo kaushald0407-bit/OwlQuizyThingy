@@ -18,13 +18,12 @@ COPY packages/socket/ ./packages/socket/
 RUN pnpm build --filter @rahoot/socket
 
 # ---- RUNNER ----
-FROM alpine:3.24 AS runner
-
-RUN apk add --no-cache nodejs
+FROM node:26-alpine AS runner
 
 WORKDIR /app
 
 COPY --from=builder /app/packages/socket/dist/index.cjs ./index.cjs
+COPY config/ ./config/
 
 RUN adduser -D appuser && \
     chown -R appuser:appuser /app
@@ -33,6 +32,7 @@ USER appuser
 
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV CONFIG_PATH=/app/config
 
 EXPOSE 3000
 

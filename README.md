@@ -123,9 +123,11 @@ pnpm exec playwright test
 OwlQuizyThingy is designed to be deployed using Docker.
 A `Dockerfile` and `compose.yml` are provided in the root directory for easy orchestration.
 
+For Railway, deploy the repository using the root `Dockerfile`. Set `MANAGER_PASSWORD` in the Railway service Variables before deploying. Railway supplies `PORT`, which the server uses automatically. The quiz files are included in the image. Set `FIREBASE_SERVICE_ACCOUNT` if the deployment needs Firebase features, and set `CORS_ORIGIN` to the public web app origin when the frontend is hosted separately.
+
 ```bash
 # Build and run using Docker Compose
-docker compose up --build -d
+MANAGER_PASSWORD="replace-with-a-strong-password" docker compose up --build -d
 ```
 *Note: Any previously hardcoded hosting platforms (e.g., Vercel, Render) are not verified as the absolute deployment mechanisms, and Docker is the standard deployment approach.*
 

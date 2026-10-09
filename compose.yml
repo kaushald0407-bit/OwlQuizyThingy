@@ -6,10 +6,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MANAGER_PASSWORD=${MANAGER_PASSWORD:-admin123}
+      - MANAGER_PASSWORD=${MANAGER_PASSWORD:?Set MANAGER_PASSWORD before starting the container}
       - CORS_ORIGIN=${CORS_ORIGIN:-*}
+      - CONFIG_PATH=/app/config
     volumes:
-      - ./config:/app/config
+      - ./config/quizz:/app/config/quizz:ro
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
       interval: 10s
