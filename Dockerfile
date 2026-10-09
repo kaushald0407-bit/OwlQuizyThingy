@@ -1,6 +1,6 @@
 # ---- BASE ----
 FROM node:26-alpine AS base
-RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
+RUN npm install -g pnpm@10.30.3
 
 # ---- BUILDER ----
 FROM base AS builder
@@ -12,6 +12,7 @@ COPY packages/socket/package.json ./packages/socket/
 
 RUN pnpm install --frozen-lockfile --filter @rahoot/socket...
 
+COPY tsconfig.json ./
 COPY packages/common/ ./packages/common/
 COPY packages/socket/ ./packages/socket/
 
