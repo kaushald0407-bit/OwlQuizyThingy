@@ -12,6 +12,7 @@ COPY packages/socket/package.json ./packages/socket/
 
 RUN pnpm install --frozen-lockfile --filter @rahoot/socket...
 
+COPY tsconfig.json ./
 COPY packages/common/ ./packages/common/
 COPY packages/socket/ ./packages/socket/
 
